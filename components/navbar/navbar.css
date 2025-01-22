@@ -1,0 +1,30 @@
+.custom-container {
+  display: flex;
+  gap: 1rem; /* Default gap */
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .custom-container {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-container {
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .custom-container {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .custom-container {
+    gap: 3.5rem;
+  }
+}

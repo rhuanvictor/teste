@@ -1,0 +1,19 @@
+/* styles.css */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-menu {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    gap: 1rem; /* Espaçamento entre os itens de navegação */
+  }
+  
+  .links {
+    display: flex;
+    gap: 1rem;
+  }
+  

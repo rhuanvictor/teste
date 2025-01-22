@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.custom-navbar {
+    max-width: none !important; /* Remove o limite */
+    width: 100%; /* Garante que ocupe toda a largura */
+  }
+
+  .custom-container {
+    display: flex;
+    gap: 1rem; /* Default gap */
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  
+  @media (min-width: 640px) {
+    .custom-container {
+      gap: 2rem;
+    }
+  }
+  @media (min-width: 340px) {
+    .custom-container {
+      display:none;
+    }
+  }
+  @media (min-width: 768px) {
+    .custom-container {
+      gap: 1.3rem;
+      font-size: 3px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .custom-container {
+      gap: 2.0rem;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .custom-container {
+      gap: 3.5rem;
+    }
+  }
+  
+  
+  .theme-switch {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: -15px; /* Desloca o ícone alguns centímetros para a direita */
+    margin-top: -10px; /* Sobe o ícone alguns centímetros */
+  }
+  
