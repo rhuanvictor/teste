@@ -43,15 +43,7 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
-    return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-    );
-  }
-);
-Button.displayName = 'Button';
+
 
 // Input
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -87,7 +79,7 @@ Card.displayName = 'Card';
 
 // Spotlight
 export function Spotlight({
-  className,
+  
   size = 200,
   springOptions = { bounce: 0 },
 }: {
@@ -102,9 +94,7 @@ export function Spotlight({
   const mouseX = useSpring(0, springOptions);
   const mouseY = useSpring(0, springOptions);
 
-  const spotlightLeft = useTransform(mouseX, (x) => `${x - size / 2}px`);
-  const spotlightTop = useTransform(mouseY, (y) => `${y - size / 2}px`);
-
+  
   useEffect(() => {
     if (containerRef.current) {
       const parent = containerRef.current.parentElement;
@@ -140,23 +130,7 @@ export function Spotlight({
     };
   }, [parentElement, handleMouseMove]);
 
-  return (
-    <motion.div
-      ref={containerRef}
-      className={cn(
-        'pointer-events-none absolute rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] blur-xl transition-opacity duration-200',
-        'from-zinc-50 via-zinc-100 to-zinc-200',
-        isHovered ? 'opacity-100' : 'opacity-0',
-        className
-      )}
-      style={{
-        width: size,
-        height: size,
-        left: spotlightLeft,
-        top: spotlightTop,
-      }}
-    />
-  );
+  
 }
 
 // Spline
@@ -180,7 +154,7 @@ export function SplineScene({ scene, className }: { scene: string; className?: s
 const FeaturesBento = () => {
   return (
     <Card className="w-full h-[500px] bg-black/[0.96] relative overflow-hidden">
-      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" />
+     
       <div className="flex h-full">
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
