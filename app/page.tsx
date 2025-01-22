@@ -18,7 +18,7 @@ import FeaturesBento from "@/components/feature-bento";
 import LightBg from "@/components/light-bg";
 import Integrations from "@/components/integrations";
 import { LastButNotLeast } from "@/components/last-but-not-least";
-import TestCommunication from "@/components/TestCommunication"; // Importa o componente
+
 
 export default function Home() {
   const { theme, setTheme } = useTheme();  // Acessa o tema atual
@@ -59,7 +59,6 @@ export default function Home() {
       {/* Adiciona o componente de teste */}
       <div className="my-8">
         oiiiiiiiiiiiiiiii
-        <TestCommunication />
       </div>
       
       
