@@ -37,6 +37,7 @@
 		"react-dom": "18.3.1",
 		"class-variance-authority": "^0.7.1",
 		"@splinetool/react-spline": "^4.0.0",
+		"@nextui-org/system": "^2.4.0",
 		"@splinetool/runtime": "^1.9.18"
 	},
 	"devDependencies": {
