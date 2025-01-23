@@ -42,7 +42,7 @@ export default function Home() {
         <h1 className={title({ size: "lg" })}>Rhuan&nbsp;</h1>
         
         {/* Aplica cor condicionalmente com base no tema */}
-        <h1 className={title({ color: theme === "dark" ? "foreground" : "pink", size: "lg" })}>
+        <h1 className={title({ color: theme === "dark" ? "foreground" : "black", size: "lg" })}>
 
           Victor Santos Lopes&nbsp;
         </h1>
