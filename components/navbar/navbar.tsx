@@ -23,15 +23,18 @@ import { ThemeSwitch } from "@/components/theme-switch/theme-switch";
 import { SearchIcon } from "@/components/icons";
 
 export const Navbar = () => {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
+  const [resolvedTheme, setResolvedTheme] = useState<string | null>(null);
   const [visible, setVisible] = useState(true);
-  const [isThemeLoaded, setIsThemeLoaded] = useState(false); // Estado para garantir que o tema seja carregado
   const lastScrollY = useRef(0);
 
+  // This useEffect ensures the theme is set immediately when the component mounts.
   useEffect(() => {
-    // Garantir que o tema seja carregado antes de aplicar a lógica
-    setIsThemeLoaded(true);
+    const finalTheme = theme ?? systemTheme ?? "light";
+    setResolvedTheme(finalTheme);
+  }, [theme, systemTheme]);
 
+  useEffect(() => {
     const handleScroll = () => {
       setVisible(window.scrollY <= lastScrollY.current);
       lastScrollY.current = window.scrollY;
@@ -41,50 +44,30 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Gradiente dinâmico baseado no tema
-  const navbarBg = isThemeLoaded
-    ? theme === "dark"
-      ? "linear-gradient(to right, #3f3d3a, #322b25, #140f0b)" // Tema dark
-      : "linear-gradient(to right, #f3f2f1, #eceae8, #d7d4d1)" // Tema light
-    : "transparent"; // Fundo transparente enquanto o tema não estiver carregado
+  // Apply background style dynamically based on resolved theme
+  const navbarBg = resolvedTheme === "dark"
+    ? "linear-gradient(to right, #3f3d3a, #322b25, #140f0b)"
+    : "linear-gradient(to right, #f3f2f1, #eceae8, #d7d4d1)";
 
-  // Adicionando uma linha fina, transparente e desfocada para ambos os temas
   const navbarStyle = {
     transform: visible ? "translateY(0)" : "translateY(-100%)",
-    background: navbarBg, // Aplica o background dinâmico
-    boxShadow: "0 1px 10px rgba(0, 0, 0, 0.4)", // Sombra para dar profundidade
-    backdropFilter: "blur(10px)", // Desfoque da linha
+    background: navbarBg,
+    boxShadow: "0 1px 10px rgba(0, 0, 0, 0.4)",
+    backdropFilter: "blur(10px)",
     borderBottom:
-      theme === "dark"
+      resolvedTheme === "dark"
         ? "1px solid rgba(255, 255, 255, 0.05)"
-        : "1px solid rgba(0, 0, 0, 0.1)", // Linha para tema escuro e claro
+        : "1px solid rgba(0, 0, 0, 0.1)",
   };
 
-  const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
-      }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      startContent={
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      type="search"
-    />
-  );
+  if (resolvedTheme === null) {
+    return null; // Wait for the theme to be resolved before rendering
+  }
 
   return (
     <NextUINavbar
       className="fixed top-0 left-0 w-full transition-transform duration-300 z-50 border-none"
-      style={navbarStyle} // Aplica o estilo da linha fina, desfocada
+      style={navbarStyle}
     >
       <NavbarContent className="flex items-center sm:basis-full justify-start pl-4 sm:pl-0">
         <NavbarMenuToggle className="sm:hidden" />
@@ -126,7 +109,24 @@ export const Navbar = () => {
 
       <NavbarMenu>
         <div className="mx-4 mt-4 flex flex-col gap-2">
-          {searchInput}
+          <Input
+            aria-label="Search"
+            classNames={{
+              inputWrapper: "bg-default-100",
+              input: "text-sm",
+            }}
+            endContent={
+              <Kbd className="hidden lg:inline-block" keys={["command"]}>
+                K
+              </Kbd>
+            }
+            labelPlacement="outside"
+            placeholder="Search..."
+            startContent={
+              <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+            }
+            type="search"
+          />
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`} className="ml-2">
               <Link
